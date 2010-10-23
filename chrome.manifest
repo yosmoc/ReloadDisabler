@@ -1,0 +1,2 @@
+content ReloadDisabler content/
+overlay chrome://messenger/content/browser.xul chrome://ReloadDisabler/content/reloaddisabler.xul
