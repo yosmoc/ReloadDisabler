@@ -4,7 +4,7 @@
   xmlns:em="http://www.mozilla.org/2004/em-rdf#">
 
   <Description about="urn:mozilla:install-manifest">
-    <em:id>reload_disabler@samurai20000</em:id>
+    <em:id>reload_disabler@samurai20000.github.com</em:id>
     <em:name>Reload Disabler</em:name>
     <em:version>0.0.1</em:version>
     <em:description>Disable Reload Button.</em:description>
@@ -12,9 +12,9 @@
     <em:homepageURL>http://github.com/samurai20000</em:homepageURL>
     <em:targetApplication>
       <Description>
-        <em:id>{B63966F7-F840-4A43-97BF-C8DA53508E67}</em:id>
+        <em:id>{3550f703-e582-4d05-9a08-453d09bdfdc6}</em:id>
         <em:minVersion>3.0</em:minVersion>
-        <em:maxVersion>3.*</em:maxVersion>
+        <em:maxVersion>3.1.*</em:maxVersion>
       </Description>
     </em:targetApplication>
   </Description>
