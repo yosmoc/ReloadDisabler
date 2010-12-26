@@ -1,18 +1,26 @@
-var ToggleGetmsg = {
+var ReloadDisabler = {
+    init : function () {
+        this.getmsg      = document.getElementById("button-getmsg");
+        this.menu_getmsg = document.getElementById("menu_getAllNewMsgPopup").parentNode;
+    },
+
     toggle_getmsg : function () {
-        var getmsg = document.getElementById("button-getmsg");
-        var menu_getmsg = document.getElementById("menu_getAllNewMsgPopup").parentNode;;
+        if (this.getmsg.disabled) {
+            this._enable_elm(this.getmsg);
+            this._enable_elm(this.menu_getmsg);
 
-        if (getmsg.disabled) {
-            this._enable_elm(getmsg);
-            this._enable_elm(menu_getmsg);
+            var self = this;
 
-            setTimeout(function () {
-                ToggleGetmsg._disable_elm(getmsg)
-            }, 10 * 1000);
+            var timer = setTimeout(function () {
+                self._disable_elm(self.getmsg);
+                self._disable_elm(self.menu_getmsg);
+            }, 5 * 1000);
+
         } else {
-            this._disable_elm(getmsg);
-            this._disable_elm(menu_getmsg);
+            clearTimeout(timer);
+
+            this._disable_elm(this.getmsg);
+            this._disable_elm(this.menu_getmsg);
         };
     },
 
@@ -25,6 +33,6 @@ var ToggleGetmsg = {
     }
 };
 
-// (function () {
-//     ToggleGetmsg.toggle_getmsg();
-// })();
+window.addEventListener("load", function() { ReloadDisabler.init();
+                                             ReloadDisabler.toggle_getmsg()},
+                        false);
