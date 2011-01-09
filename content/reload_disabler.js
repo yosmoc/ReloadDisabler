@@ -1,26 +1,35 @@
 var ReloadDisabler = {
     init : function () {
-        this.getmsg      = document.getElementById("button-getmsg");
-        this.menu_getmsg = document.getElementById("menu_getAllNewMsgPopup").parentNode;
+        this.button_getmsg = document.getElementById("button-getmsg");
+        this.menu_getmsg   = document.getElementById("menu_getAllNewMsgPopup").parentNode;
+        this.key_getmsg    = document.getElementById("key_getNewMessages");
+        this.key_getallmsg = document.getElementById("key_getAllNewMessages");
+        this.timer         = 0;
     },
 
     toggle_getmsg : function () {
-        if (this.getmsg.disabled) {
-            this._enable_elm(this.getmsg);
+        if (this.button_getmsg.disabled) {
+            this._enable_elm(this.button_getmsg);
             this._enable_elm(this.menu_getmsg);
+            this._enable_hotkey(this.key_getmsg, "key_getNewMessages");
+            this._enable_hotkey(this.key_getallmsg, "key_getAllNewMessages");
 
             var self = this;
 
-            var timer = setTimeout(function () {
-                self._disable_elm(self.getmsg);
+            this.timer = setTimeout(function () {
+                self._disable_elm(self.button_getmsg);
                 self._disable_elm(self.menu_getmsg);
-            }, 5 * 1000);
+                self._disable_hotkey(this.key_getmsg);
+                self._disable_hotkey(this.key_getallmsg);
+            }, 15 * 1000);
 
         } else {
-            clearTimeout(timer);
+            clearTimeout(this.timer);
 
-            this._disable_elm(this.getmsg);
+            this._disable_elm(this.button_getmsg);
             this._disable_elm(this.menu_getmsg);
+            this._disable_hotkey(this.key_getmsg);
+            this._disable_hotkey(this.key_getallmsg);
         };
     },
 
@@ -30,9 +39,18 @@ var ReloadDisabler = {
     
     _disable_elm : function (elm) {
         elm.setAttribute('disabled', true);
+    },
+
+    _enable_hotkey : function (keyid, command) {
+        keyid.attributes.oncommand.value = goDoCommand(command);
+    },
+
+    _disable_hotkey : function (keyid) {
+        keyid.attributes.oncommand.value = goDoCommand("");
     }
 };
 
-window.addEventListener("load", function() { ReloadDisabler.init();
-                                             ReloadDisabler.toggle_getmsg()},
+window.addEventListener("load",
+                        function() { ReloadDisabler.init();
+                                     ReloadDisabler.toggle_getmsg(); },
                         false);
