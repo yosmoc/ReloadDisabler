@@ -21,7 +21,7 @@ var ReloadDisabler = {
                 self._disable_elm(self.menu_getmsg);
                 self._disable_hotkey(this.key_getmsg);
                 self._disable_hotkey(this.key_getallmsg);
-            }, 15 * 1000);
+            }, 5 * 1000);
 
         } else {
             clearTimeout(this.timer);
