@@ -4,33 +4,42 @@ var ReloadDisabler = {
         this.menu_getmsg   = document.getElementById("menu_getAllNewMsgPopup").parentNode;
         this.key_getmsg    = document.getElementById("key_getNewMessages");
         this.key_getallmsg = document.getElementById("key_getAllNewMessages");
-        this.timer         = 0;
+        this.timer         = null;
     },
 
-    toggle_getmsg : function () {
-        if (this.button_getmsg.disabled) {
-            this._enable_elm(this.button_getmsg);
-            this._enable_elm(this.menu_getmsg);
-            this._enable_hotkey(this.key_getmsg, "key_getNewMessages");
-            this._enable_hotkey(this.key_getallmsg, "key_getAllNewMessages");
+    is_enabled : function () {
+        return !this.menu_getmsg.disabled;
+    },
 
-            var self = this;
+    enable_getmsg : function () {
+        this._enable_elm(this.button_getmsg);
+        this._enable_elm(this.menu_getmsg);
+        this._enable_hotkey(this.key_getmsg, "key_getNewMessages");
+        this._enable_hotkey(this.key_getallmsg, "key_getAllNewMessages");
 
-            this.timer = setTimeout(function () {
-                self._disable_elm(self.button_getmsg);
-                self._disable_elm(self.menu_getmsg);
-                self._disable_hotkey(this.key_getmsg);
-                self._disable_hotkey(this.key_getallmsg);
-            }, 5 * 1000);
+        // 仮で5sにしておく
+        this._set_timer(5);
+    },
 
-        } else {
-            clearTimeout(this.timer);
+    disable_getmsg : function () {
+        this._clear_timer();
+        this.timer = null;
 
-            this._disable_elm(this.button_getmsg);
-            this._disable_elm(this.menu_getmsg);
-            this._disable_hotkey(this.key_getmsg);
-            this._disable_hotkey(this.key_getallmsg);
-        };
+        this._disable_elm(this.button_getmsg);
+        this._disable_elm(this.menu_getmsg);
+        this._disable_hotkey(this.key_getmsg);
+        this._disable_hotkey(this.key_getallmsg);
+    },
+
+    _set_timer : function (time) {
+        var self = this;
+        this.timer = setTimeout(function () {
+            self.disable_getmsg(this.key_getallmsg);
+        }, time * 1000);
+    },
+
+    _clear_timer : function() {
+        clearTimeout(this.timer);
     },
 
     _enable_elm : function (elm) {

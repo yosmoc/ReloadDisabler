@@ -4,15 +4,21 @@
   <!-- load modules -->
   <script type="application/x-javascript" src="chrome://ReloadDisabler/content/reload_disabler.js" />
 
-  <!-- initialize -->
-<!--  <script type="application/x-javascript">
-    ReloadDisalber.init();
+
+  <!-- script -->
+  <script type="application/x-javascript">
+    function toggle() {
+        if (ReloadDisabler.is_enabled()) {
+            ReloadDisabler.disable_getmsg();
+        } else {
+            ReloadDisabler.enable_getmsg();
+        }
+    }
   </script>
--->
 
   <!-- toggle icon -->
   <statusbar id="status-bar">
-    <statusbarpanel id="toggle-getmsg" label="toggle" onclick="ReloadDisabler.toggle_getmsg()" />
+    <statusbarpanel id="toggle-getmsg" label="toggle" onclick="toggle()" />
   </statusbar>
 
 </overlay>
