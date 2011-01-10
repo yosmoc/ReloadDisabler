@@ -8,7 +8,7 @@ var ReloadDisabler = {
     },
 
     is_enabled : function () {
-        return !this.menu_getmsg.disabled;
+        return !this.button_getmsg.disabled;
     },
 
     enable_getmsg : function () {
@@ -61,5 +61,5 @@ var ReloadDisabler = {
 
 window.addEventListener("load",
                         function() { ReloadDisabler.init();
-                                     ReloadDisabler.toggle_getmsg(); },
+                                     ReloadDisabler.disable_getmsg(); },
                         false);
