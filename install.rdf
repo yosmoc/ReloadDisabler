@@ -6,7 +6,7 @@
   <Description about="urn:mozilla:install-manifest">
     <em:id>reload_disabler@samurai20000.github.com</em:id>
     <em:name>Reload Disabler</em:name>
-    <em:version>0.0.1</em:version>
+    <em:version>0.0.2</em:version>
     <em:description>Disable user trigger get message event.</em:description>
     <em:creator>samurai20000</em:creator>
     <em:homepageURL>http://github.com/samurai20000</em:homepageURL>
