@@ -4,7 +4,10 @@ var ReloadDisabler = {
         this.menu_getmsg   = document.getElementById("menu_getAllNewMsgPopup").parentNode;
         this.key_getmsg    = document.getElementById("key_getNewMessages");
         this.key_getallmsg = document.getElementById("key_getAllNewMessages");
-        this.timer         = null;
+        // this.timer         = null;
+        this.timer         = Components.classes["@mozilla.org/timer;1"]
+                             .createInstance(Components.interfaces.nsITimer);
+
     },
 
     is_enabled : function () {
@@ -17,13 +20,12 @@ var ReloadDisabler = {
         this._enable_hotkey(this.key_getmsg, "key_getNewMessages");
         this._enable_hotkey(this.key_getallmsg, "key_getAllNewMessages");
 
-        // 仮で5sにしておく
+        // 仮で5s
         this._set_timer(5);
     },
 
     disable_getmsg : function () {
         this._clear_timer();
-        this.timer = null;
 
         this._disable_elm(this.button_getmsg);
         this._disable_elm(this.menu_getmsg);
@@ -33,13 +35,13 @@ var ReloadDisabler = {
 
     _set_timer : function (time) {
         var self = this;
-        this.timer = setTimeout(function () {
-            self.disable_getmsg(this.key_getallmsg);
-        }, time * 1000);
+        this.timer.initWithCallback(function () {
+            self.disable_getmsg();
+        }, time * 1000, Components.interfaces.nsITimer.TYPE_ONE_SHOT);
     },
 
     _clear_timer : function() {
-        clearTimeout(this.timer);
+        this.timer.cancel();
     },
 
     _enable_elm : function (elm) {
