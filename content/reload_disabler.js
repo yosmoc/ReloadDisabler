@@ -4,7 +4,6 @@ var ReloadDisabler = {
         this.menu_getmsg   = document.getElementById("menu_getAllNewMsgPopup").parentNode;
         this.key_getmsg    = document.getElementById("key_getNewMessages");
         this.key_getallmsg = document.getElementById("key_getAllNewMessages");
-        // this.timer         = null;
         this.timer         = Components.classes["@mozilla.org/timer;1"]
                              .createInstance(Components.interfaces.nsITimer);
 
@@ -65,3 +64,4 @@ window.addEventListener("load",
                         function() { ReloadDisabler.init();
                                      ReloadDisabler.disable_getmsg(); },
                         false);
+
